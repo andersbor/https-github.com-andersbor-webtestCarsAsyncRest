@@ -17,10 +17,10 @@ namespace UITestCarsAsyncREST
         [ClassInitialize]
         public static void Setup(TestContext context)
         {
-            _driver = new ChromeDriver(DriverDirectory); // fast
+            //_driver = new ChromeDriver(DriverDirectory); // fast
             // if your Chrome browser was updated, you must update the driver as well ...
             //    https://chromedriver.chromium.org/downloads
-            //_driver = new FirefoxDriver(DriverDirectory);  // slow
+            _driver = new FirefoxDriver(DriverDirectory);  // slow
         }
 
         [ClassCleanup]
@@ -32,7 +32,7 @@ namespace UITestCarsAsyncREST
         [TestMethod]
         public void TestMethod1()
         {
-            _driver.Navigate().GoToUrl("http://localhost:3000/");
+            _driver.Navigate().GoToUrl("http://localhost:3004/");
             string title = _driver.Title;
             Assert.AreEqual("Car Shop", title);
 
@@ -42,7 +42,7 @@ namespace UITestCarsAsyncREST
             //IWebElement carList = _driver.FindElement(By.Id("carlist")); // No such element
 
             WebDriverWait wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10)); // decorator pattern?
-            IWebElement carList = wait.Until<IWebElement>(d => d.FindElement(By.Id("carlist")));
+            IWebElement carList = wait.Until(d => d.FindElement(By.Id("carlist")));
             Assert.IsTrue(carList.Text.Contains("Volvo"));
         }
     }
