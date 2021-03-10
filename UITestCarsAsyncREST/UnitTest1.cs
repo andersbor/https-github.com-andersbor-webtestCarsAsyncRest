@@ -13,17 +13,17 @@ namespace UITestCarsAsyncREST
     [TestClass]
     public class UnitTest1
     {
-        private static readonly string DriverDirectory = "C:\\seleniumDrivers2";
+        private static readonly string DriverDirectory = "C:\\webDrivers";
         private static IWebDriver _driver;
 
         // https://www.automatetheplanet.com/mstest-cheat-sheet/
         [ClassInitialize]
         public static void Setup(TestContext context)
         {
-            _driver = new ChromeDriver(DriverDirectory); // fast
+            // _driver = new ChromeDriver(DriverDirectory); // fast
             // if your Chrome browser was updated, you must update the driver as well ...
             //    https://chromedriver.chromium.org/downloads
-            //_driver = new FirefoxDriver(DriverDirectory);  // slow
+            _driver = new FirefoxDriver(DriverDirectory);  // slow
         }
 
         [ClassCleanup]
@@ -35,7 +35,9 @@ namespace UITestCarsAsyncREST
         [TestMethod]
         public void TestMethod1()
         {
-            _driver.Navigate().GoToUrl("http://localhost:3000/");
+            string url = "http://localhost:3000/";
+            _driver.Navigate().GoToUrl("file:///C:/andersb/javascript/carsVue3/index.htm");
+
             string title = _driver.Title;
             Assert.AreEqual("Car Shop", title);
 
